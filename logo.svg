@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Raspberry berry logo">
+  <title>Raspberry berry</title>
+  <!-- leaves -->
+  <path d="M128 70 C 100 40, 70 44, 58 58 C 84 62, 104 70, 128 84 Z" fill="#3c9d4a"/>
+  <path d="M128 70 C 156 40, 186 44, 198 58 C 172 62, 152 70, 128 84 Z" fill="#2f8a3d"/>
+  <!-- stem -->
+  <path d="M128 70 L 128 48" stroke="#5b3a1e" stroke-width="8" stroke-linecap="round"/>
+  <!-- berry body: drupelets -->
+  <g fill="#c2185b">
+    <circle cx="96" cy="110" r="20"/>
+    <circle cx="128" cy="104" r="20"/>
+    <circle cx="160" cy="110" r="20"/>
+    <circle cx="82" cy="142" r="20"/>
+    <circle cx="112" cy="138" r="20"/>
+    <circle cx="144" cy="138" r="20"/>
+    <circle cx="174" cy="142" r="20"/>
+    <circle cx="96" cy="170" r="20"/>
+    <circle cx="128" cy="172" r="20"/>
+    <circle cx="160" cy="170" r="20"/>
+    <circle cx="128" cy="204" r="18"/>
+  </g>
+  <!-- highlights -->
+  <g fill="#ffffff" opacity="0.55">
+    <circle cx="90" cy="103" r="5"/>
+    <circle cx="122" cy="97" r="5"/>
+    <circle cx="154" cy="103" r="5"/>
+    <circle cx="76" cy="135" r="5"/>
+    <circle cx="106" cy="131" r="5"/>
+    <circle cx="138" cy="131" r="5"/>
+    <circle cx="168" cy="135" r="5"/>
+  </g>
+</svg>
