@@ -19,3 +19,4 @@ Open `index.html` in any modern browser. There are no dependencies and no build 
 - No pixel art yet. `sprite.json` is an empty placeholder.
 - No Raspberry Pi hardware connection.
 - No tests, no data storage, no desktop version.
+- Not in the Cage yet. Registering it is card 008 for the Friendly Farmer in [astras-pet-apps](https://github.com/findastra/astras-pet-apps).
