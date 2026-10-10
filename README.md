@@ -16,7 +16,7 @@ Open `index.html` in any modern browser. There are no dependencies and no build 
 
 ## Limits
 
-- No pixel art yet. `sprite.json` is an empty placeholder.
+- Pixel art is a first generated draft (`art/sheets/raspberry-berry-20261009.png`, converted into `sprite.json`). Not yet approved by Astra, and not yet in the Cage's roster.
 - No Raspberry Pi hardware connection.
 - No tests, no data storage, no desktop version.
 - Not in the Cage yet. Registering it is card 008 for the Friendly Farmer in [astras-pet-apps](https://github.com/findastra/astras-pet-apps).
