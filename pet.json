@@ -3,15 +3,30 @@
   "kind": "pet-app",
   "owner": "Astra",
   "sprite": "sprite.json",
-  "job": "Placeholder for a raspberry-berry pet. It will be a small companion for a Raspberry Pi.",
-  "runs_on": "Any modern browser (index.html). No Raspberry Pi hardware is required for the placeholder.",
+  "job": "Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
+  "runs_on": "Any modern browser (index.html), on Astra's PC. Data stays in that browser; no Pi hardware connection.",
   "entry": "index.html",
-  "status": "hatching",
+  "status": "growing",
   "cage": {
     "topic": "pet-app",
     "home": "README.md",
-    "repository": "https://github.com/findastra/astras-pet-apps"
+    "repository": "https://github.com/findastra/astras-pet-apps",
+    "submit": {
+      "date": "2026-10-10",
+      "job": "Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
+      "status": "growing",
+      "says": ["berry good", "backed up and up to date"],
+      "moods": {
+        "happy": "Every running Pi is backed up and updated.",
+        "worried": "A few Pis need a backup, an update or a hostname.",
+        "alarmed": "More than five things to fix across the Pis.",
+        "sick": "The browser is blocking site storage, so I cannot remember the Pis.",
+        "sad": "I could not read a backup file."
+      },
+      "audit": { "cadence": "weekly", "subject": "Astra's Raspberry Pi projects", "needs": "site storage allowed for the page" }
+    }
   },
-  "built_with": "Claude Haiku 5.5 (claude-haiku-5-5), 2026-10-09; Claude Opus 5.5 (claude-opus-5-5), 2026-10-09",
-  "updated": "2026-10-09"
+  "audit": { "cadence": "weekly", "subject": "Astra's Raspberry Pi projects", "needs": "site storage allowed for the page" },
+  "built_with": "Claude Haiku 5.5 (claude-haiku-5-5), 2026-10-09; Claude Opus 5.5 (claude-opus-5-5), 2026-10-09; Claude Opus 5.5 (claude-opus-5-5), 2026-10-10",
+  "updated": "2026-10-10"
 }
