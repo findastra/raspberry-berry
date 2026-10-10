@@ -4,20 +4,255 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Raspberry Berry</title>
+  <link rel="icon" href="logo.svg">
   <style>
-    :root { color-scheme: light dark; --bg: #f4f4f8; --fg: #1d1d24; }
-    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #14141a; --fg: #ecedf3; } }
-    :root[data-theme="dark"] { --bg: #14141a; --fg: #ecedf3; }
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--bg); color: var(--fg); font-family: system-ui, sans-serif; padding: 16px; box-sizing: border-box; }
-    main { max-width: 32rem; text-align: center; }
-    img { width: 160px; height: 160px; }
+    :root {
+      color-scheme: light dark;
+      --bg: #f6f2f4; --card: #ffffff; --fg: #221a1e; --muted: #6f6168; --line: #e6dbe0;
+      --berry: #c51a4a; --berry-soft: #fbe4eb; --leaf: #4c7417; --leaf-soft: #e7f2d6;
+      --warn: #a15c00; --warn-soft: #fff1d6; --bad: #b3261e; --bad-soft: #fde3e1;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #161114; --card: #211a1e; --fg: #f1e9ed; --muted: #a8979f; --line: #3a2e34;
+        --berry: #ff5c8a; --berry-soft: #3c1a26; --leaf: #a6d65a; --leaf-soft: #233016;
+        --warn: #ffc066; --warn-soft: #3a2a10; --bad: #ff8a80; --bad-soft: #3d1a18;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #161114; --card: #211a1e; --fg: #f1e9ed; --muted: #a8979f; --line: #3a2e34;
+      --berry: #ff5c8a; --berry-soft: #3c1a26; --leaf: #a6d65a; --leaf-soft: #233016;
+      --warn: #ffc066; --warn-soft: #3a2a10; --bad: #ff8a80; --bad-soft: #3d1a18;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    main { max-width: 960px; margin: 0 auto; padding: 20px 16px 48px; }
+    header { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
+    canvas#pet { width: 128px; height: 128px; image-rendering: pixelated; cursor: pointer; flex: none; }
+    canvas#pet.hop { animation: hop .45s ease-out; }
+    @keyframes hop { 30% { transform: translateY(-10px) scaleY(1.04); } 60% { transform: translateY(0) scaleY(.94); } }
+    .who { flex: 1; min-width: 220px; }
+    h1 { margin: 0; font-size: 26px; letter-spacing: -.01em; }
+    .sub { margin: 2px 0 10px; color: var(--muted); }
+    .bubble { position: relative; display: inline-block; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px; max-width: 100%; }
+    .bubble b { color: var(--berry); }
+    .bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+    button, .btn { font: inherit; border: 1px solid var(--line); background: var(--card); color: var(--fg); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+    button:hover, .btn:hover { border-color: var(--berry); }
+    button.primary { background: var(--berry); border-color: var(--berry); color: #fff; }
+    button.small { padding: 3px 8px; font-size: 13px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+    .card h2 { margin: 0; font-size: 17px; display: flex; gap: 8px; align-items: baseline; justify-content: space-between; }
+    .tag { font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 99px; background: var(--leaf-soft); color: var(--leaf); white-space: nowrap; }
+    .tag.idea { background: var(--berry-soft); color: var(--berry); }
+    .tag.retired { background: var(--line); color: var(--muted); }
+    .meta { color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
+    .issues { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .issues li { font-size: 13px; padding: 4px 8px; border-radius: 6px; background: var(--warn-soft); color: var(--warn); }
+    .issues li.ok { background: var(--leaf-soft); color: var(--leaf); }
+    code { font: 12.5px ui-monospace, Consolas, monospace; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 2px 6px; overflow-wrap: anywhere; }
+    .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .empty { text-align: center; color: var(--muted); padding: 32px 16px; border: 1px dashed var(--line); border-radius: 12px; }
+    dialog { border: 1px solid var(--line); border-radius: 14px; background: var(--card); color: var(--fg); padding: 18px; width: min(520px, calc(100vw - 32px)); }
+    dialog::backdrop { background: rgb(0 0 0 / .4); }
+    form.edit { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    form.edit label { display: flex; flex-direction: column; gap: 3px; font-size: 13px; color: var(--muted); }
+    form.edit .wide { grid-column: 1 / -1; }
+    input, select, textarea { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; width: 100%; }
+    textarea { min-height: 70px; resize: vertical; }
+    @media (max-width: 520px) { form.edit { grid-template-columns: 1fr; } canvas#pet { width: 96px; height: 96px; } }
+    footer { margin-top: 28px; color: var(--muted); font-size: 13px; }
   </style>
 </head>
 <body>
-  <main>
-    <img src="logo.svg" alt="Raspberry berry logo">
-    <h1>Raspberry Pi</h1>
-    <p>A placeholder. The berry has not hatched yet.</p>
-  </main>
+<main>
+  <header>
+    <canvas id="pet" width="64" height="64" title="Pat Raspberry Pi to check again" aria-label="Raspberry Pi, the berry pet"></canvas>
+    <div class="who">
+      <h1>Raspberry Pi</h1>
+      <p class="sub">Keeps an eye on Astra's Raspberry Pi projects.</p>
+      <div class="bubble" id="bubble" role="status" aria-live="polite"></div>
+    </div>
+  </header>
+
+  <div class="bar">
+    <button class="primary" id="add">Add a Pi project</button>
+    <button id="check">Check my Pis</button>
+    <button id="export">Save a backup file</button>
+    <label class="btn" for="import">Load a backup file</label>
+    <input type="file" id="import" accept="application/json,.json" hidden>
+  </div>
+
+  <section id="list" class="grid" aria-label="Pi projects"></section>
+
+  <footer>Everything stays in this browser on this PC. Use "Save a backup file" to keep a copy.</footer>
+</main>
+
+<dialog id="dlg">
+  <form class="edit" id="form" method="dialog">
+    <label class="wide">Project name <input name="name" required placeholder="Pi-hole, weather station, retro arcade..."></label>
+    <label>Which Pi <select name="model">
+      <option>Raspberry Pi 5</option><option>Raspberry Pi 4</option><option>Raspberry Pi 3</option>
+      <option>Raspberry Pi 400 / 500</option><option>Raspberry Pi Zero 2 W</option><option>Raspberry Pi Zero</option>
+      <option>Raspberry Pi Pico</option><option>Other</option></select></label>
+    <label>Status <select name="status"><option value="idea">idea</option><option value="building">building</option><option value="running">running</option><option value="retired">retired</option></select></label>
+    <label>Hostname <input name="host" placeholder="pihole.local"></label>
+    <label>User <input name="user" placeholder="pi"></label>
+    <label>OS <input name="os" placeholder="Raspberry Pi OS (Bookworm)"></label>
+    <label>Repo or link <input name="link" type="url" placeholder="https://github.com/..."></label>
+    <label>Last OS update <input name="updated" type="date"></label>
+    <label>Last SD card backup <input name="backup" type="date"></label>
+    <label class="wide">Notes, GPIO pins, parts <textarea name="notes"></textarea></label>
+    <div class="wide row" style="justify-content:space-between">
+      <button type="button" id="del" class="small">Delete project</button>
+      <span class="row"><button value="cancel" formnovalidate>Cancel</button><button value="save" class="primary">Save</button></span>
+    </div>
+  </form>
+</dialog>
+
+<script src="sprite.js"></script>
+<script>
+(() => {
+  const KEY = 'raspberry-berry.projects.v1';
+  const DAY = 86400000, BACKUP_DAYS = 30, UPDATE_DAYS = 60;
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const today = () => new Date().toISOString().slice(0, 10);
+
+  // ---- storage (sick if the browser will not let us save) ----
+  let storageOk = true, projects = [];
+  try { projects = JSON.parse(localStorage.getItem(KEY) || '[]'); if (!Array.isArray(projects)) projects = []; }
+  catch { storageOk = false; }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(projects)); storageOk = true; }
+    catch { storageOk = false; }
+  }
+
+  // ---- the pet ----
+  const cv = $('#pet'), ctx = cv.getContext('2d');
+  function draw(mood) {
+    const f = window.BERRY_SPRITE?.frames?.[mood]; if (!f) return;
+    ctx.clearRect(0, 0, 64, 64);
+    f.rows.forEach((row, y) => { for (let x = 0; x < row.length; x++) { const c = f.pal[row[x]]; if (c) { ctx.fillStyle = c; ctx.fillRect(x, y, 1, 1); } } });
+  }
+  let mood = 'sleep';
+  function setMood(m, html) { mood = m; draw(m); $('#bubble').innerHTML = html; }
+  setInterval(() => { if (mood === 'idle') { draw('blink'); setTimeout(() => mood === 'idle' && draw('idle'), 180); } }, 4200);
+
+  // ---- what needs doing ----
+  const ago = (d) => (d ? Math.floor((Date.now() - new Date(d + 'T12:00').getTime()) / DAY) : null);
+  function issues(p) {
+    if (p.status === 'retired' || p.status === 'idea') return [];
+    const out = [], b = ago(p.backup), u = ago(p.updated);
+    if (p.status === 'running') {
+      if (b == null) out.push('Never backed up');
+      else if (b > BACKUP_DAYS) out.push(`Backup is ${b} days old`);
+    }
+    if (u == null) out.push('No OS update recorded');
+    else if (u > UPDATE_DAYS) out.push(`OS last updated ${u} days ago`);
+    if (!p.host) out.push('No hostname, so I cannot tell you how to reach it');
+    return out;
+  }
+
+  function verdict({ fresh = false } = {}) {
+    if (!storageOk) return setMood('sick', '<b>I need you:</b> this browser is blocking site storage, so I cannot remember your Pis. Allow site data for this page, then reload.');
+    if (!projects.length) return setMood('sleep', 'Zzz. No Pi projects yet. Add one and I will keep watch.');
+    const all = projects.flatMap((p) => issues(p).map((i) => `${p.name}: ${i}`));
+    if (all.length > 5) return setMood('alarmed', `<b>${all.length} things to fix!</b> ${esc(all.slice(0, 3).join('; '))}...`);
+    if (all.length) return setMood('worried', `<b>${all.length} to fix:</b> ${esc(all.join('; '))}.`);
+    const live = projects.filter((p) => p.status === 'running').length;
+    const msg = `All ${projects.length} project${projects.length > 1 ? 's' : ''} look good${live ? `, ${live} running` : ''}. Every running Pi is backed up and updated.`;
+    setMood(fresh ? 'happy' : 'idle', msg);
+  }
+
+  function check() {
+    setMood('curious', 'Checking each Pi...');
+    cv.classList.remove('hop'); void cv.offsetWidth; cv.classList.add('hop');
+    setTimeout(() => verdict({ fresh: true }), 700);
+  }
+
+  // ---- list ----
+  function render() {
+    const list = $('#list');
+    if (!projects.length) { list.innerHTML = '<div class="empty">No projects yet. "Add a Pi project" to start.</div>'; return; }
+    const order = { running: 0, building: 1, idea: 2, retired: 3 };
+    list.innerHTML = [...projects].sort((a, b) => order[a.status] - order[b.status] || a.name.localeCompare(b.name)).map((p) => {
+      const iss = issues(p);
+      const ssh = p.host ? `ssh ${p.user || 'pi'}@${p.host}` : '';
+      return `<article class="card" data-id="${esc(p.id)}">
+        <h2><span>${esc(p.name)}</span><span class="tag ${esc(p.status)}">${esc(p.status)}</span></h2>
+        <div class="meta">${esc(p.model)}${p.os ? ' · ' + esc(p.os) : ''}${p.host ? ' · ' + esc(p.host) : ''}</div>
+        ${p.notes ? `<div class="meta">${esc(p.notes)}</div>` : ''}
+        <ul class="issues">${iss.length ? iss.map((i) => `<li>${esc(i)}</li>`).join('') : (p.status === 'running' || p.status === 'building') ? '<li class="ok">Backed up and up to date</li>' : ''}</ul>
+        ${ssh ? `<div class="row"><code>${esc(ssh)}</code><button class="small" data-act="copy" data-text="${esc(ssh)}">Copy</button></div>` : ''}
+        <div class="row">
+          ${p.status !== 'idea' && p.status !== 'retired' ? `<button class="small" data-act="backup">Backed up today</button><button class="small" data-act="update" title="sudo apt update && sudo apt full-upgrade">Updated today</button>` : ''}
+          ${p.link ? `<a class="btn small" href="${esc(p.link)}" target="_blank" rel="noopener" style="font-size:13px;padding:3px 8px;text-decoration:none">Open repo</a>` : ''}
+          <button class="small" data-act="edit">Edit</button>
+        </div>
+      </article>`;
+    }).join('');
+  }
+
+  $('#list').addEventListener('click', async (e) => {
+    const btn = e.target.closest('button[data-act]'); if (!btn) return;
+    const p = projects.find((x) => x.id === btn.closest('.card').dataset.id); if (!p) return;
+    const act = btn.dataset.act;
+    if (act === 'edit') return open(p);
+    if (act === 'copy') { try { await navigator.clipboard.writeText(btn.dataset.text); btn.textContent = 'Copied'; } catch { btn.textContent = 'Select it'; } setTimeout(() => (btn.textContent = 'Copy'), 1200); return; }
+    if (act === 'backup') p.backup = today();
+    if (act === 'update') p.updated = today();
+    save(); render(); check();
+  });
+
+  // ---- add / edit ----
+  const dlg = $('#dlg'), form = $('#form');
+  let editing = null;
+  function open(p) {
+    editing = p || null;
+    form.reset();
+    const v = p || { status: 'building', user: 'pi' };
+    for (const el of form.elements) if (el.name && v[el.name] != null) el.value = v[el.name];
+    $('#del').hidden = !p;
+    dlg.showModal();
+  }
+  $('#add').onclick = () => open(null);
+  dlg.addEventListener('close', () => {
+    if (dlg.returnValue !== 'save') return;
+    const data = Object.fromEntries(new FormData(form));
+    if (editing) Object.assign(editing, data);
+    else projects.push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), ...data });
+    save(); render(); check();
+  });
+  $('#del').onclick = () => {
+    if (!editing || !confirm(`Delete "${editing.name}"? Save a backup file first if you want to keep it.`)) return;
+    projects = projects.filter((x) => x !== editing); dlg.close('cancel'); save(); render(); verdict();
+  };
+
+  // ---- backup files ----
+  $('#export').onclick = () => {
+    const blob = new Blob([JSON.stringify({ pet: 'Raspberry Pi', saved: today(), projects }, null, 2)], { type: 'application/json' });
+    const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: `raspberry-berry-projects-${today().replaceAll('-', '')}.json` });
+    a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+  $('#import').onchange = async (e) => {
+    const file = e.target.files[0]; e.target.value = ''; if (!file) return;
+    try {
+      const got = JSON.parse(await file.text());
+      const list = Array.isArray(got) ? got : got.projects;
+      if (!Array.isArray(list) || !list.every((p) => p && p.name)) throw new Error('not a project list');
+      projects = list.map((p) => ({ status: 'building', model: 'Other', ...p, id: p.id || Math.random().toString(36).slice(2) }));
+      save(); render(); check();
+    } catch (err) {
+      setMood('sad', `I could not read that file (${esc(err.message)}). Pick a file saved by "Save a backup file".`);
+    }
+  };
+
+  $('#check').onclick = check;
+  cv.onclick = check;
+  render(); verdict();
+})();
+</script>
 </body>
 </html>
