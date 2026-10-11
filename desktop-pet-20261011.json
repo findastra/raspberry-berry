@@ -1,0 +1,23 @@
+{
+  "pet": "raspberry-berry",
+  "creator": "Astra",
+  "assistant": "OpenAI Codex (GPT-6)",
+  "date": "2026-10-11",
+  "status": "draft",
+  "desktop_scale": 0.8,
+  "sparkles": false,
+  "renderer": "astras-pet-apps/scripts/desktop-pets-20261011.cs",
+  "art_files": [
+    "desktop-art/raspberry-berry/alarmed-20261011.png",
+    "desktop-art/raspberry-berry/blink-20261011.png",
+    "desktop-art/raspberry-berry/curious-20261011.png",
+    "desktop-art/raspberry-berry/happy-20261011.png",
+    "desktop-art/raspberry-berry/idle-20261011.png",
+    "desktop-art/raspberry-berry/sad-20261011.png",
+    "desktop-art/raspberry-berry/sick-20261011.png",
+    "desktop-art/raspberry-berry/sleep-20261011.png",
+    "desktop-art/raspberry-berry/worried-20261011.png"
+  ],
+  "notes": "Smaller berry with larger central bead and prominent eyes.",
+  "source_sheet": "desktop-art/raspberry-berry/sheet-20261011.png"
+}

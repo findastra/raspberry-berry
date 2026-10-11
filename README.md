@@ -42,3 +42,5 @@ To redraw the pet after changing the art: `node scripts/draw-berry.mjs`. It writ
 - The older generated sheet (`art/sheets/raspberry-berry-20261009.png`) is kept for the record and no longer used.
 - Not registered in the Cage yet. The job, status, moods and audit are submitted in `pet.json` for the Friendly Farmer in [astras-pet-apps](https://github.com/findastra/astras-pet-apps).
 - No tests and no desktop version.
+
+Desktop pet revision by OpenAI Codex (GPT-6), 2026-10-11. See desktop-pet-20261011.json for the current artwork, size and behavior. Desktop art remains a draft; no sparkles.

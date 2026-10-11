@@ -12,3 +12,5 @@ Rules for any assistant working here:
 - Update `pet.json` `built_with` with the model and date of any change.
 
 built_with: Claude Haiku 5.5 (claude-haiku-5-5), 2026-10-09; Claude Opus 5.5 (claude-opus-5-5), 2026-10-10
+
+Desktop pet revision by OpenAI Codex (GPT-6), 2026-10-11. See desktop-pet-20261011.json for the current artwork, size and behavior. Desktop art remains a draft; no sparkles.
