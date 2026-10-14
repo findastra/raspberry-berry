@@ -1,5 +1,6 @@
 {
-  "pet": "Raspberry Pi",
+  "pet": "Raspberry Pi Berry",
+  "program": "Raspberry Pi Maker",
   "kind": "pet-app",
   "owner": "Astra",
   "sprite": "sprite.json",
@@ -10,9 +11,9 @@
   "cage": {
     "topic": "pet-app",
     "home": "README.md",
-    "repository": "https://github.com/findastra/astras-pet-apps",
+    "repository": "https://github.com/findastra/astras-pet-os",
     "submit": {
-      "date": "2026-10-10",
+      "date": "2026-10-13",
       "job": "Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
       "status": "growing",
       "says": [
@@ -30,7 +31,8 @@
         "cadence": "weekly",
         "subject": "Astra's Raspberry Pi projects",
         "needs": "site storage allowed for the page"
-      }
+      },
+      "pet": "Raspberry Pi Berry"
     }
   },
   "audit": {
