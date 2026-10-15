@@ -12,3 +12,5 @@ Rules for any assistant working here:
 - Update `pet.json` `built_with` with the model and date of any change.
 
 built_with: Claude Haiku 5.5 (claude-haiku-5-5), 2026-10-09; Claude Opus 5.5 (claude-opus-5-5), 2026-10-10
+
+Shared original yellow-phone shell and Pet Collar UI by OpenAI Codex (GPT-6), 2026-10-15. Coins retired by owner. Existing program/host behavior is preserved; shared disconnected controls do not establish an L3 connection.

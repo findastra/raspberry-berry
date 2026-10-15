@@ -15,7 +15,10 @@
       "date": "2026-10-10",
       "job": "Keeps track of Astra's Raspberry Pi projects and tells her which Pis need a backup or an OS update.",
       "status": "growing",
-      "says": ["berry good", "backed up and up to date"],
+      "says": [
+        "berry good",
+        "backed up and up to date"
+      ],
       "moods": {
         "happy": "Every running Pi is backed up and updated.",
         "worried": "A few Pis need a backup, an update or a hostname.",
@@ -23,10 +26,23 @@
         "sick": "The browser is blocking site storage, so I cannot remember the Pis.",
         "sad": "I could not read a backup file."
       },
-      "audit": { "cadence": "weekly", "subject": "Astra's Raspberry Pi projects", "needs": "site storage allowed for the page" }
+      "audit": {
+        "cadence": "weekly",
+        "subject": "Astra's Raspberry Pi projects",
+        "needs": "site storage allowed for the page"
+      }
     }
   },
-  "audit": { "cadence": "weekly", "subject": "Astra's Raspberry Pi projects", "needs": "site storage allowed for the page" },
+  "audit": {
+    "cadence": "weekly",
+    "subject": "Astra's Raspberry Pi projects",
+    "needs": "site storage allowed for the page"
+  },
   "built_with": "Claude Haiku 5.5 (claude-haiku-5-5), 2026-10-09; Claude Opus 5.5 (claude-opus-5-5), 2026-10-09; Claude Opus 5.5 (claude-opus-5-5), 2026-10-10",
-  "updated": "2026-10-10"
+  "updated": "2026-10-15",
+  "framework": "PET-PROGRAM-FRAMEWORK.md (shared shell 2026-10-15; partial implementation)",
+  "framework_limitations": [
+    "Shared presentation does not establish a connected L3 harness",
+    "Native click bindings and per-tool runtime acceptance require verification"
+  ]
 }
