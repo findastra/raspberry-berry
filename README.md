@@ -6,6 +6,14 @@ Raspberry Berry looks after Astra's Raspberry Pi projects. Its pet, Raspberry Pi
 
 **Status: growing.** It works; the rough edges are listed under Limits.
 
+## Pictures
+
+![Raspberry Berry's program page: Raspberry Pi asleep with no projects yet, and the Add a Pi project, Check my Pis and backup buttons](docs/images/raspberry-berry-program-page-20261017.png)
+
+Raspberry Berry's program page (`index.html`) on `main`, before any Pi project is added.
+
+Screenshots taken 2026-10-17 with GitHub Goldfish's [project-image-generator](https://github.com/findastra/github-goldfish#project-image-generator); added with Claude Opus 5.5 (`claude-opus-5-5`), 2026-10-17.
+
 ## What it does
 
 - Keeps a list of Pi projects: name, which Pi, status (idea, building, running, retired), hostname, user, OS, repo link, notes and GPIO pins.
