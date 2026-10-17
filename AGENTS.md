@@ -4,7 +4,7 @@ Raspberry Berry is a pet app by Astra. Its pet is Raspberry Pi, drawn in the sha
 
 Rules for any assistant working here:
 
-- Follow the pet rules in Astra's Pet Apps ([findastra/astras-pet-apps](https://github.com/findastra/astras-pet-apps), `PET-FILES.md`): `pet.json` must stay valid, `sprite` and `entry` must be real files, and status is hatching, growing or grown.
+- Follow the pet rules in Astra's PetOS ([findastra/astras-pet-os](https://github.com/findastra/astras-pet-os), `PET-FILES.md`): `pet.json` must stay valid, `sprite` and `entry` must be real files, and status is hatching, growing or grown.
 - Changes to the job, status, moods or audit are submitted to the Friendly Farmer through `cage.submit` in `pet.json`, with the date.
 - Before changing anything, check the hub's newest handoff (`docs/handoff-*.md` on its `main`). Do not touch the hub from this repo.
 - The pet art comes from `scripts/draw-berry.mjs`. Change the drawing there and re-run it; never hand-edit `sprite.json`, `sprite.js` or `logo.svg`. Keep the logo shape: two leaves, packed drupelets, black seams.

@@ -48,7 +48,7 @@ To redraw the pet after changing the art: `node scripts/draw-berry.mjs`. It writ
 - Data lives only in the browser it was entered in. Use the backup file to move it or keep it safe.
 - The pet is hand-drawn by `scripts/draw-berry.mjs`, not generated like the Cage's other pets, because the berry logo shape has to be exact. It uses the logo's own red and green rather than a neon palette. The stickers are copied from the Cage's shared set and drawn at 2x. Astra has not approved it yet.
 - The older generated sheet (`art/sheets/raspberry-berry-20261009.png`) is kept for the record and no longer used.
-- Not registered in the Cage yet. The job, status, moods and audit are submitted in `pet.json` for the Friendly Farmer in [astras-pet-apps](https://github.com/findastra/astras-pet-apps).
+- Not registered in the Cage yet. The job, status, moods and audit are submitted in `pet.json` for the Friendly Farmer in [astras-pet-os](https://github.com/findastra/astras-pet-os).
 - No tests and no desktop version.
 
 Desktop pet revision by OpenAI Codex (GPT-6), 2026-10-11. See desktop-pet-20261011.json for the current artwork, size and behavior. Desktop art remains a draft; no sparkles.
